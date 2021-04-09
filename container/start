@@ -1,0 +1,29 @@
+#!/bin/bash
+
+netcard=$(ls /etc/sysconfig/network-scripts/ | grep ifcfg | grep -v lo)
+card=${netcard//ifcfg-/}
+ip=$(ip addr | grep $card | grep inet | awk '{print $2}' | awk -F '/' '{print $1}')
+
+# 添加cacti目录
+cd container
+tar zvxf cacti-1.1.38.tar.gz && mv cacti-1.1.38 cacti
+chown -R root.root cacti
+chmod 777 -R cacti
+sed -i "/database_hostname/s/localhost/${ip}/g" cacti/include/config.php
+sed -i  '/$database_port/s/3306/33066/g' cacti/include/config.php
+sed -i '/database_password/s/cactiuser/cactipassword/g' cacti/include/config.php
+sed -i "s/localhost/${ip}/g" nginx.conf
+sed -i "/DB_Host/s/localhost/${ip}/g" spine.conf
+sed -i "/DB_Port/s/3306/33066/g" spine.conf
+chmod 777 *.log
+
+# 启动容器
+docker-compose up -d
+
+sleep 60
+
+# 配置cacti数据库
+docker exec mysql_cacti mysql -uroot -plinuxwt123 -e "create database cacti;use cacti;source /usr/local/Nginx/html/cacti/cacti.sql;create user 'cactiuser'@'%' identified by 'cactipassword';create user 'cactiuser'@'localhost' identified by 'cactipassword';grant all on *.* to root;grant all on cacti.* to root@localhost;grant all on cacti.* to cactiuser;grant all on cacti.* to cactiuser@localhost;flush privileges;grant select on mysql.time_zone_name to cactiuser@'%';"
+docker cp bug.sh $(docker ps -a | grep mysql_cacti | awk '{print $1}'):/tmp
+docker exec mysql_cacti chmod +x /tmp/bug.sh
+docker exec mysql_cacti /tmp/bug.sh 
