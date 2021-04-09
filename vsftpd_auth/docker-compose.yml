@@ -1,0 +1,19 @@
+ftp_keshi:
+   restart: always
+   image: fauria/vsftpd
+   container_name: ftp_keshi
+   volumes:
+      - /data/vsftpd/vsftpd:/home/vsftpd
+      - $PWD/vsftpd.conf:/etc/vsftpd/vsftpd.conf
+      - /etc/localtime:/etc/localtime
+      - /etc/timezone:/etc/tomezone
+   ports:
+      - "21:21"
+      - "20:20"
+      - "3000-3050:3000-3050"
+   environment:
+      - FTP_USER=tengwang
+      - FTP_PASS=tengwang123
+      - PASV_ADDRESS=10.8.8.1
+      - PASV_MIN_PORT=3000
+      - PASV_MAX_PORT=3050
