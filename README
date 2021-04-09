@@ -1,0 +1,16 @@
+## 该仓库分为两部分  
+image镜像
+container容器
+# 特别说明  
+1、nginx、php、mysql版本分别为1.15 5.6.38 5.7.20,其中nginx与php均采用源码安装的，mysql使用yum安装的
+2、所有镜均使用Dockerfile构建生成，其基础镜像均为centos7
+3、因为mysql是使用非安全模式进行初始化的，然后通过sql语句修改账户root@localhost初始密码为linuxwt123
+4、注意docker-compose.yml文件中映射的文件需要注意：snmpd.conf（有些以lnmp为基础架构的应用需要用到该扩展）ldap 
+5、该仓库应用经过测试无问题
+6、再启动应用前，请执行命令 
+echo "<?php
+phpinfo();
+?>
+" > /usr/local/Nginx/html/index.php
+然后使用地址http://ip/index.php测试lnmp基础架构是否搭建成功
+7、注意nginx.conf里有一个连接php容器名的配置，如果php容器名修改，改文件里的相关配置也要修改

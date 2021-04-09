@@ -1,0 +1,47 @@
+version: "3"
+services:
+  nginx_lnmp:
+    restart: always
+    image: nginx:lnmp
+    container_name: nginx_lnmp
+    volumes:
+       - /etc/localtime:/etc/localtime
+       - /etc/timezone:/etc/timezone
+       - /usr/local/Nginx/html:/usr/local/Nginx/html
+       - ./nginx.conf:/usr/local/Nginx/conf/nginx.conf
+    privileged: true
+    links:
+       - php_lnmp
+    ports:
+       - 80:80
+  php_lnmp:
+    restart: always
+    image: php:lnmp
+    container_name: php_lnmp
+    volumes:
+       - /etc/localtime:/etc/localtime
+       - /etc/timezone:/etc/timezone
+       - /usr/local/Nginx/html:/usr/local/Nginx/html
+       - ./php-fpm.conf:/usr/local/php/etc/php-fpm.conf
+       - ./php.ini:/usr/local/php/etc/php.ini
+       - ./snmpd.conf:/etc/snmp/snmpd.conf
+    privileged: true
+    links:
+       - mysql_lnmp
+    expose:
+       - 9000
+  mysql_lnmp:
+    restart: always
+    image: mysql:lnmp
+    container_name: mysql_lnmp
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - /etc/timezone:/etc/timezone
+      - $PWD/mysql:/var/lib/mysql
+      - $PWD/secure:/var/lib/mysql-files
+      - $PWD/my.cnf:/etc/my.cnf
+      - $PWD/general.log:/var/log/mysql/general.log
+      - $PWD/error.log:/var/log/mysql/error.log
+      - /usr/local/Nginx/html:/usr/local/Nginx/html
+    ports:
+      - 33066:3306
