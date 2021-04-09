@@ -1,0 +1,13 @@
+redis_linuxwt:
+  restart: always
+  image: redis/centos7
+  container_name: redis_linuxwt
+  volumes:
+      - /etc/localtime:/etc/localtime
+      - /etc/timezone:/etc/timezone
+      - $PWD/redis:/data
+      - $PWD/redis.conf:/usr/local/redis/redis.conf
+  privileged: true
+  ports:
+      - 6389:6379
+  command: /usr/local/redis/src/redis-server /usr/local/redis/redis.conf

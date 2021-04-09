@@ -1,0 +1,16 @@
+redis_core:
+  restart: always
+  image: redis:4.0
+  container_name: redis_core
+  volumes:
+      - /etc/localtime:/etc/localtime
+      - /etc/timezone:/etc/timezone
+      - $PWD/redis:/data
+      - $PWD/redis.conf:/usr/local/etc/redis/redis.conf
+  privileged: true
+  ports:
+      - 6389:6379
+ # command: redis-server --appendonly yes --requirepass Gooal$123 
+  command: redis-server /usr/local/etc/redis/redis.conf
+
+  

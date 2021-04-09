@@ -1,0 +1,3 @@
+1、redis_centos中是以centos7为基础镜像通过Dokcerfile构建的redis镜像，然后编排的redis单机实例　　
+
+2、redis_debian中拉取的是redis官方镜像
