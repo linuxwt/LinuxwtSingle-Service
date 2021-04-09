@@ -1,0 +1,11 @@
+grafana_linuxwt:
+    image: grafana/linuxwt
+    restart: always
+    container_name: grafana_linuxwt
+    volumes:
+      - ./grafana.ini:/etc/grafana/grafana.ini
+      - ./grafana:/var/lib/grafana
+      - /etc/localtime:/etc/localtime
+      - /etc/timezone:/etc/timezone
+    ports:
+      - 3000:3000
