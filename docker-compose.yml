@@ -1,0 +1,12 @@
+jenkins:
+   restart: always
+   image: jenkins:maven
+   container_name: jenkins
+   volumes:
+      - ./jenkins_home:/var/jenkins_home
+      - ./.bashrc:/root/.bashrc
+      - /etc/localtime:/etc/localtime
+      - /etc/timezone:/etc/timezone
+   ports:
+      - "8080:8080"
+      - "50000:50000"

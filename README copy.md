@@ -1,0 +1,4 @@
+# jenkins
+docker部署jenkins服务
+注意：jenkins主目录映射到宿主机上的目录你需要赋予1000的用户权限
+chown 1000 jenkins_home
