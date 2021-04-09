@@ -1,0 +1,6 @@
+我们将docker私有仓库建立好后，需要把从互联网上拉取的镜像打一个tag，然后推到私有镜像仓库，以mysql为例：   
+docker pull mysql:5.7  
+docker images   
+docker tag mysql:5.7 serverip:5000/mysql:v1   
+docker push serverip:5000/mysql:v1     
+测试 http://serverip:5000/v2/_catalog
