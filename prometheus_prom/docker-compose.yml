@@ -1,0 +1,11 @@
+prometheus:
+    restart: always
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+        - /etc/localtime:/etc/localtime
+        - /etc/timezone:/etc/timezone
+        - $PWD/prometheus.yml:/etc/prometheus/prometheus.yml
+    privileged: true
+    ports:
+        - 9090:9090
