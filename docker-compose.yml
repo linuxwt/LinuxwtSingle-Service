@@ -1,0 +1,47 @@
+nginx_cacti:
+  restart: always
+  image: nginx:cacti
+  container_name: nginx_cacti
+  volumes:
+     - /etc/localtime:/etc/localtime
+     - /etc/timezone:/etc/timezone
+     - /usr/local/Nginx/html:/usr/local/Nginx/html
+     - ./nginx.conf:/usr/local/Nginx/conf/nginx.conf
+  privileged: true
+  links:
+     - php_cacti
+  ports:
+     - 80:80
+php_cacti:
+  restart: always
+  image: php:cacti_spine
+  container_name: php_cacti
+  volumes:
+     - /etc/localtime:/etc/localtime
+     - /etc/timezone:/etc/timezone
+     - /usr/local/Nginx/html:/usr/local/Nginx/html
+     - ./php-fpm.conf:/usr/local/php/etc/php-fpm.conf
+     - ./php.ini:/usr/local/php/etc/php.ini
+     - ./snmpd.conf:/etc/snmp/snmpd.conf
+     - ./spine.conf:/etc/spine.conf
+  privileged: true
+  links:
+     - mysql_cacti
+  expose:
+     - 9000
+mysql_cacti:
+  restart: always
+  image: mysql:5.7
+  container_name: mysql_cacti
+  volumes:
+    - /etc/localtime:/etc/localtime
+    - /etc/timezone:/etc/timezone
+    - $PWD/mysql:/var/lib/mysql
+    - $PWD/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf
+    - $PWD/mysql.log:/var/log/mysql/general.log
+    - $PWD/err.log:/var/log/mysql/error.log
+    - /usr/local/Nginx/html:/usr/local/Nginx/html
+  ports:
+    - 33066:3306
+  environment:
+    MYSQL_ROOT_PASSWORD: xxxxxx
