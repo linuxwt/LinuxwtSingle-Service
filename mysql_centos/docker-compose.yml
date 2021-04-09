@@ -1,0 +1,14 @@
+mysql_linuxwt:
+    restart: always
+    image: mysql/centos7
+    container_name: mysql_linuxwt
+    volumes:
+       - /etc/localtime:/etc/localtime
+       - /etc/timezone:/etc/timezone
+       - $PWD/mysqld.log:/var/log/mysqld.log
+       - $PWD/general.log:/var/lib/mysql/mysql/general.log
+       - $PWD/mysql:/var/lib/mysql
+       - $PWD/my.cnf:/etc/my.cnf
+       - $PWD/secure:/var/lib/mysql-files
+    ports:
+       - "33066:3306"

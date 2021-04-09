@@ -1,0 +1,9 @@
+mysqld, Version: 5.7.24-log (MySQL Community Server (GPL)). started with:
+Tcp port: 0  Unix socket: /var/lib/mysql/mysql.sock
+Time                 Id Command    Argument
+2019-01-13T05:18:07.792824Z	    2 Connect	root@localhost on  using Socket
+2019-01-13T05:18:07.792868Z	    2 Connect	Access denied for user 'root'@'localhost' (using password: NO)
+2019-01-13T05:18:18.685767Z	    3 Connect	linuxwt@localhost on  using Socket
+2019-01-13T05:18:18.686266Z	    3 Query	select @@version_comment limit 1
+2019-01-13T05:18:21.778856Z	    3 Query	show databases
+2019-01-13T05:18:23.372170Z	    3 Quit	
