@@ -1,0 +1,6 @@
+[Thu Jan 10 21:14:57.879761 2019] [suexec:notice] [pid 1] AH01232: suEXEC mechanism enabled (wrapper: /usr/sbin/suexec)
+[Thu Jan 10 21:14:57.892351 2019] [auth_digest:notice] [pid 1] AH01757: generating secret for digest authentication ...
+[Thu Jan 10 21:14:57.893092 2019] [lbmethod_heartbeat:notice] [pid 1] AH02282: No slotmem from mod_heartmonitor
+[Thu Jan 10 21:14:57.895225 2019] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.6 (CentOS) configured -- resuming normal operations
+[Thu Jan 10 21:14:57.895250 2019] [core:notice] [pid 1] AH00094: Command line: '/usr/sbin/httpd -D FOREGROUND'
+[Thu Jan 10 21:16:58.756357 2019] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down

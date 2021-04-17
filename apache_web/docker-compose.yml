@@ -1,0 +1,15 @@
+apache_linuxwt:
+    restart: always
+    image: apache/centos7
+    container_name: apache_linuxwt
+    volumes:
+       - /etc/localtime:/etc/localtime
+       - /etc/timezone:/etc/timezone
+       - $PWD/error_log:/etc/httpd/logs/error_log
+       - $PWD/access_log:/etc/httpd/logs/access_log
+       - $PWD/html:/www/html
+       - $PWD/httpd.conf:/etc/httpd/conf/httpd.conf
+       - $PWD/httpd_flask.conf:/etc/httpd/conf.d/defaults.conf
+    privileged: true
+    ports:
+       - "80:80"
