@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: javaapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: javaapp
+  template:
+    metadata:
+      name: javaapp
+      labels:
+        app: javaapp
+    spec:
+      containers:
+      - name: javaapp
+        image: tomcat:8.5
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: default-page
+          mountPath: /usr/local/tomcat/webapps/ROOT
+      volumes:
+      - name: default-page
+        hostPath:
+          path: /tmp/ROOT
+        
