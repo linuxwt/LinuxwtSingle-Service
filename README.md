@@ -1,2 +1,1 @@
-# LinuxwtSingle-Service   
-一些常用的单节点中间件部署文件
+# [部署单节点二进制MySQL-5.6](https://linuxwt.com/er-jin-zhi-bu-shu-mysql-5-6/)
