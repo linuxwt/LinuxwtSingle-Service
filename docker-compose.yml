@@ -1,0 +1,17 @@
+server:
+   restart: always
+   image: golang
+   volumes:
+       - $PWD/ngrok:/ngrok
+       - /etc/localtime:/etc/localtime
+       - /etc/timezone:/etc/timezone
+   ports:
+       - "11111:11111"
+       - "22222:22222"
+       - "4443:4443"
+       - "8040:8040"
+       - "8042:8042"
+   working_dir: /ngrok
+   command:
+        ./bin/ngrokd -tlsKey=server.key -tlsCrt=server.crt -domain="ngrok.abc.com" -httpAddr=":8040" -httpsAddr=":8042" -tunnelAddr=":4443" -log-level INFO
+
