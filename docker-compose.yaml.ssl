@@ -1,0 +1,19 @@
+rancher:
+   restart: always
+   image: rancher/rancher
+   container_name: rancher
+   volumes:
+      - /etc/localtime:/etc/localtime
+      - /etc/timezone:/etc/timezone
+      - /root/var/log/auditlog:/var/log/auditlog 
+      - ./data:/var/lib/rancher
+      - ./cert/tls.crt:/etc/rancher/ssl/cert.pem
+      - ./cert/tls.key:/etc/rancher/ssl/key.pem
+      - ./cert/cacerts.pem:/etc/rancher/ssl/cacerts.pem
+   environment:
+      AUDIT_LEVEL: 3
+   privileged: true
+   restart: always
+   ports:
+      - "8088:80"
+      - "4443:443"
