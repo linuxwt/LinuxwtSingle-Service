@@ -1,0 +1,4 @@
+https://blog.csdn.net/wangshui898/article/details/116041307
+
+window git 推送遇到不支持http
+ git remote set-url origin http://192.168.0.146/root/hnyd.git

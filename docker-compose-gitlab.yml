@@ -1,0 +1,16 @@
+gitlab:
+  image: 'gitlab/gitlab-ce:13.12.15-ce.0'
+  restart: always
+  container_name: gitlab
+  hostname: '192.168.0.146'
+  environment:
+    GITLAB_OMNIBUS_CONFIG: |
+      external_url 'http://192.168.0.146:80'
+      gitlab_rails['gitlab_shell_ssh_port'] = 2224
+  ports:
+    - '80:80'
+    - '2224:22'
+  volumes:
+    - '/srv/gitlab/config:/etc/gitlab'
+    - '/srv/gitlab/logs:/var/log/gitlab'
+    - '/srv/gitlab/data:/var/opt/gitlab'
