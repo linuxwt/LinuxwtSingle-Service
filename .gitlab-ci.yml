@@ -1,0 +1,23 @@
+stages:
+  - build
+  - deploy
+ 
+first:
+  stage: build
+  script:
+    - cd cicd-test
+    - docker build -t 192.168.202.24:30002/public/cicdtest:$(cat .env  | awk -F '=' '{print $2}')  .
+    - docker login 192.168.202.24:30002 -u admin -p xxxx
+    - docker push 192.168.202.24:30002/public/cicdtest:$(cat .env  | awk -F '=' '{print $2}')
+  tags:
+    - server40
+
+second:
+  stage: deploy
+  image: docker/compose:1.29.2
+  script:
+    - cp cicd-test/docker-compose.yml /docker-compose.yml
+    - cp cicd-test/.env /.env
+    - docker-compose -f /docker-compose.yml up -d
+  tags:
+    - server40
