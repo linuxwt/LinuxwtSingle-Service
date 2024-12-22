@@ -1,0 +1,7 @@
+version: '3'
+ 
+services:
+  cicdtest:
+    image: 192.168.202.24:30002/public/cicdtest:$tag
+    ports:
+      - "8089:8089"
