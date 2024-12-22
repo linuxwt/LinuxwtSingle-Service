@@ -1,2 +1,1 @@
-# LinuxwtSingle-Service   
-一些常用的单节点中间件部署文件
+# [基于gitlab-runner持续集成持续部署容器应用实践（一]）(https://linuxwt.com/ji-yu-gitlab-runnerchi-xu-ji-cheng-chi-xu-bu-shu-ying-yong-shi-jian-yi/)
