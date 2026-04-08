@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  openclaw-gateway:
+    image: ghcr.io/openclaw/openclaw:latest
+    container_name: openclaw-gateway
+    restart: unless-stopped
+    ports:
+      - "18789:18789"
+    volumes:
+      - ./data/config:/home/node/.openclaw
+      - ./data/data:/home/node/clawd
+    environment:
+      - http_proxy=http://squid:Mu44bwFmyVtLyz@10.254.222.236:33128
+      - https_proxy=http://squid:Mu44bwFmyVtLyz@10.254.222.236:33128
+      - OPENCLAW_GATEWAY_TOKEN="{OPENCLAW_GATEWAY_TOKEN}"
+      - GLOBAL_AGENT_HTTP_PROXY=http://squid:Mu44bwFmyVtLyz@10.254.222.236:33128
+      - GLOBAL_AGENT_HTTPS_PROXY=http://squid:Mu44bwFmyVtLyz@10.254.222.236:33128
+      - NO_PROXY="localhost,127.0.0.1,192.168.202.11,::1"
+    shm_size: 2g
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    command: node /app/dist/index.js gateway --port 18789 
+
+  openclaw-cli:
+    image: ghcr.io/openclaw/openclaw:latest
+    container_name: openclaw-cli
+    volumes:
+      - ./data/config:/home/node/.openclaw
+      - ./data/data:/home/node/clawd
+    environment:
+      - OPENCLAW_GATEWAY_TOKEN="{OPENCLAW_GATEWAY_TOKEN}"
+    network_mode: "service:openclaw-gateway"
+    entrypoint: ["node", "dist/index.js"]
