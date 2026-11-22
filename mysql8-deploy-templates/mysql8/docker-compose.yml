@@ -1,0 +1,18 @@
+# ★ 部署前需替换：本文件中的 <YOUR_*> 占位符（密码等）
+version: '3'
+services:
+  mysql-jk:
+      restart: always
+      image: mysql:8
+      container_name: mysql-jk
+      volumes:
+          - /etc/localtime:/etc/localtime
+          - /etc/timezone:/etc/timezone
+          - $PWD/mysql:/var/lib/mysql
+          - $PWD/my.cnf:/etc/my.cnf
+       #   - $PWD/mysql.log:/var/log/mysql/general.log
+       #   - $PWD/error_mysql.log:/var/log/mysql/error.log
+      ports:
+          - 3308:3306
+      environment:
+          MYSQL_ROOT_PASSWORD: <YOUR_MYSQL_ROOT_PASSWORD>
