@@ -1,0 +1,17 @@
+# ★ 部署前需替换：本文件中的 <YOUR_*> 占位符（密码等）
+version: '3.8'
+services:
+  postgres-jk:
+    image: postgres:16-alpine
+    container_name: postgres-jk
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: <YOUR_POSTGRES_PASSWORD>
+      POSTGRES_DB: mysql160
+      TZ: Asia/Shanghai
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+   #   - ./init.sql:/docker-entrypoint-initdb.d/init.sql
