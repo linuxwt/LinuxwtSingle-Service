@@ -1,2 +1,2 @@
 # LinuxwtSingle-Service   
-一些常用的单节点中间件部署文件
+一些常用的单实例数据库部署
