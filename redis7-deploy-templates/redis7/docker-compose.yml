@@ -1,0 +1,15 @@
+# ★ 部署前需替换：本文件中的 <YOUR_*> 占位符（密码等）
+version: '3'
+services:
+  redis-jk:
+      restart: always
+      image: redis:7
+      container_name: redis-jk
+      volumes:
+          - /etc/localtime:/etc/localtime
+          - /etc/timezone:/etc/timezone
+          - ./data:/data
+          - ./redis.conf:/etc/redis/redis.conf
+      ports:
+          - 9673:6379
+      command: redis-server /etc/redis/redis.conf --requirepass <YOUR_REDIS_PASSWORD> --appendonly yes
