@@ -1,0 +1,25 @@
+{
+  "APIKEY": "sk-ccr-local",
+  "LOG": true,
+  "LOG_LEVEL": "info",
+  "API_TIMEOUT_MS": 600000,
+  "HOST": "127.0.0.1",
+  "Providers": [
+    {
+      "name": "litellm",
+      "api_base_url": "http://127.0.0.1:4000/v1/chat/completions",
+      "api_key": "<YOUR_LITELLM_MASTER_KEY>",
+      "models": [
+        "<YOUR_MODEL_NAME_1>",
+        "<YOUR_MODEL_NAME_2>"
+      ]
+    }
+  ],
+  "Router": {
+    "default": "litellm,<YOUR_MODEL_NAME_1>",
+    "background": "litellm,<YOUR_MODEL_NAME_2>",
+    "think": "litellm,<YOUR_MODEL_NAME_1>",
+    "longContext": "litellm,<YOUR_MODEL_NAME_1>",
+    "longContextThreshold": 60000
+  }
+}
