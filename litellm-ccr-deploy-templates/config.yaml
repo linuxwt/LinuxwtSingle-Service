@@ -1,0 +1,77 @@
+# ============================================================
+# LiteLLM Proxy 配置模板
+# 上游网关：<YOUR_GATEWAY_HOST>:<YOUR_GATEWAY_PORT>/v1  (OpenAI 兼容 / vLLM 后端)
+#
+# ★ 部署前需替换的字段：
+#   1. 所有 api_base → 你的上游网关地址，如 http://10.0.0.5:3005/v1
+#      （必须带协议和 /v1 后缀）
+#   2. model_name / model → 你网关里实际可用的模型名
+#
+# 说明：
+#   use_chat_completions_api: true
+#     Anthropic /v1/messages 请求默认可能被翻译成 OpenAI Responses API
+#     （POST {api_base}/responses），如果网关只实现 /chat/completions，
+#     不加该开关会报 "Invalid URL (POST /v1/responses)"。
+#
+# 启动：
+#   docker compose up -d
+# ============================================================
+
+model_list:
+
+  # ---------------- 对话 / 推理模型 ----------------
+  # 按你网关的实际可用模型增删下面的条目，结构照抄即可
+  - model_name: <YOUR_MODEL_NAME_1>
+    litellm_params:
+      model: openai/<YOUR_MODEL_NAME_1>
+      api_base: http://<YOUR_GATEWAY_HOST>:<YOUR_GATEWAY_PORT>/v1
+      api_key: os.environ/GW_API_KEY
+      use_chat_completions_api: true
+
+  # - model_name: <YOUR_MODEL_NAME_2>
+  #   litellm_params:
+  #     model: openai/<YOUR_MODEL_NAME_2>
+  #     api_base: http://<YOUR_GATEWAY_HOST>:<YOUR_GATEWAY_PORT>/v1
+  #     api_key: os.environ/GW_API_KEY
+  #     use_chat_completions_api: true
+
+  # ---------------- 嵌入模型 Embedding（可选） ----------------
+  # - model_name: <YOUR_EMBEDDING_MODEL>
+  #   litellm_params:
+  #     model: openai/<YOUR_EMBEDDING_MODEL>
+  #     api_base: http://<YOUR_GATEWAY_HOST>:<YOUR_GATEWAY_PORT>/v1
+  #     api_key: os.environ/GW_API_KEY
+
+  # ---------------- 重排模型 Rerank（可选） ----------------
+  # - model_name: <YOUR_RERANK_MODEL>
+  #   litellm_params:
+  #     model: hosted_vllm/<YOUR_RERANK_MODEL>
+  #     api_base: http://<YOUR_GATEWAY_HOST>:<YOUR_GATEWAY_PORT>/v1
+  #     api_key: os.environ/GW_API_KEY
+
+  # ---------------- Claude Code 兼容别名（可选） ----------------
+  # 让 Claude Code 默认请求的模型名映射到你实际部署的模型
+  - model_name: claude-sonnet-4-5
+    litellm_params:
+      model: openai/<YOUR_MODEL_NAME_1>
+      api_base: http://<YOUR_GATEWAY_HOST>:<YOUR_GATEWAY_PORT>/v1
+      api_key: os.environ/GW_API_KEY
+      use_chat_completions_api: true
+
+  - model_name: claude-haiku-4-5
+    litellm_params:
+      model: openai/<YOUR_MODEL_NAME_2>
+      api_base: http://<YOUR_GATEWAY_HOST>:<YOUR_GATEWAY_PORT>/v1
+      api_key: os.environ/GW_API_KEY
+      use_chat_completions_api: true
+
+
+litellm_settings:
+  drop_params: true
+  num_retries: 2
+  request_timeout: 600
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY
+
+#（注：内容由AI生成）
