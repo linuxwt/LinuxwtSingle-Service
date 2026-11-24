@@ -73,3 +73,6 @@ Claude Code ──► CCR (127.0.0.1:3456) ──► LiteLLM (127.0.0.1:4000) �
 
 - `.env` 和填好真实值的 `config.yaml` / `ccr-config.json` **只留服务器，不进 git**
 - 本仓库里的都是模板，`<YOUR_*>` 占位符在部署时替换
+
+# 参考博客
+[基于Ubuntu(20.04)部署Claude Code+Claude Code Router+Litellm实现openai协议的聚合大模型接口对接](https://linuxwt.com:8443/ji-yu-ubuntu-20-04-bu-shu-claude-code-claude-code-router-litellmshi-xian-openaixie-yi-de-ju-he-da-mo-xing-jie-kou-dui-jie/)
